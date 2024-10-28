@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Form from "./Form";
 import { nanoid } from "nanoid";
+import Items from "./Items";
 const App = () => {
   //List will  be the state value
   const [items, setItems] = useState([]); //initiall y empty array as there are no items initially
@@ -18,9 +19,12 @@ const App = () => {
     setItems([...items, newItem]); //since we are only adding to the existing list first spread out the existing items
   };
 
+  const removeItem = (itemId) => {};
+
   return (
     <section className="section-center">
       <Form addItem={addItem} />
+      <Items items={items} removeItem={removeItem} />
     </section>
   );
 };
