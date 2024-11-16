@@ -1,13 +1,14 @@
-import { FaCartPlus } from 'react-icons/fa';
+//the purple component showing the cart icon etc 
+import { FaCartPlus } from "react-icons/fa";
 const Navbar = () => {
   return (
     <nav>
-      <div className='nav-center'>
+      <div className="nav-center">
         <h4>useReducer</h4>
-        <div className='nav-container'>
-          <FaCartPlus className='cart-icon' />
-          <div className='amount-container'>
-            <p className='total-amount'>2</p>
+        <div className="nav-container">
+          <FaCartPlus className="cart-icon" />
+          <div className="amount-container">
+            <p className="total-amount">2</p>
           </div>
         </div>
       </div>

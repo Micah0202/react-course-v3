@@ -14,6 +14,7 @@ const CartContainer = () => {
       </section>
     );
   }
+  //if i have some items then  i  display the below section 
   return (
     <section className='cart'>
       {/* cart header */}
