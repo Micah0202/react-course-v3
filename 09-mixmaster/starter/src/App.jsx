@@ -8,10 +8,23 @@ import {
   Cocktail,
   SinglePageError,
 } from "./pages";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { loader as landingLoader } from "./pages/Landing"; //alias this as we will  be having many different loaders
 import { loader as singleCocktailLoader } from "./pages/Cocktail";
 import { action as newsletterAction } from "./pages/Newsletter";
+
+//TODO -cant use  useQuery inside a loader
+const queryClient = new QueryClient({
+  //set up stale time or how long the queries are valid globally
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, //valid for 5 mins
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -48,7 +61,7 @@ const router = createBrowserRouter([
           },
           {
             path: "person",
-            element: <h2>Jphn doe</h2>,
+            element: <h2>John doe</h2>,
           },
         ],
       },
@@ -57,6 +70,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />;
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 };
 export default App;
