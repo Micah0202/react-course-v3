@@ -3,6 +3,7 @@ import Wrapper from "../assets/wrappers/CocktailList";
 import CocktailCard from "./CocktailCard";
 //we get the array  of drinks as a prop from Landing.jsx
 const CocktailList = ({ drinks }) => {
+    //if we have no drinks then return no cocktails found 
   if (!drinks) {
     return (
       <h4 style={{ textAlign: "center" }}>No matching cocktails found...</h4>

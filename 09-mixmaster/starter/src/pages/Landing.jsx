@@ -17,7 +17,7 @@ export const loader = async () => {
 };
 
 const Landing = () => {
-  const { drinks, searchTerm } = useLoaderData(); //data has whatever the loader returns
+  const { drinks, searchTerm } = useLoaderData(); //data has whatever the loader returns ie the array of objects where  each object is a drink
   console.log(drinks);
   return (
     <>
