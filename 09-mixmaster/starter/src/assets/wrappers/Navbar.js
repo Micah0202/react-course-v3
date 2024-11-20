@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+//can use the variables defined in index.css
 const Wrapper = styled.nav`
   background: var(--white);
   .nav-center {
@@ -16,6 +17,7 @@ const Wrapper = styled.nav`
     font-weight: 700;
     letter-spacing: 2px;
   }
+  /* parent for all  our links  */
   .nav-links {
     display: flex;
     flex-direction: column;
@@ -47,4 +49,4 @@ const Wrapper = styled.nav`
   }
 `;
 
-export default Wrapper;
+export default Wrapper; //export ths

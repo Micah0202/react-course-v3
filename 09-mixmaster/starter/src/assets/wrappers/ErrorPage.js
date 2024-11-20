@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
+//error page wrapper div 
 const Wrapper = styled.div`
-  min-height: 100vh;
+
+  min-height: 100vh;//100 percent 
   text-align: center;
   display: flex;
   align-items: center;

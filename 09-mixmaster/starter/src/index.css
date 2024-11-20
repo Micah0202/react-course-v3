@@ -279,6 +279,8 @@ ul {
 PROJECT CSS
 =============
 */
+
+/* the below styles will be shared across all the pages  */
 .page {
   width: var(--view-width);
   max-width: var(--max-width);
