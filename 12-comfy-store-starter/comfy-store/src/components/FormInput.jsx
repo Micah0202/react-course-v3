@@ -1,13 +1,15 @@
 //the props are label  , name ,type (the type could be email etc)
 //this is not the actual form these are just the input fields  
 //FormInput from DaisyUI 
-const FormInput = ({label,name,type ,defaultValue}) => {
+//add the size prop and based on that  size the input size will be defined 
+const FormInput = ({label,name,type ,defaultValue ,size}) => {
   return (
     <label className="form-control">
     <div className="label">
-      <span className="label-text">{label}</span>
+      <span className="label-text capitalize">{label}</span>
     </div>
-    <input type={type} name={name} defaultValue={defaultValue}className="input input-bordered "/>
+    <input type={type} name={name} defaultValue={defaultValue}className={`input input-bordered ${size}`}/>
+    {/* adding the size prop as that decides the size of the input element  */}
      
   </label>
   )

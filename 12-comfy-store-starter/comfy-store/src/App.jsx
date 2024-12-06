@@ -1,5 +1,14 @@
 import { About ,Cart , Checkout ,Error , HomeLayout , Landing , Orders , Products, Register ,SingleProduct,Login} from "./pages" 
 import {RouterProvider ,createBrowserRouter} from 'react-router-dom' ;
+import { ErrorElement } from "./components";
+
+//LOADERS
+import {loader as landingLoader}  from './pages/Landing';
+import {loader as singleProductLoader} from './pages/SingleProduct' ;
+import {loader  as productsLoader} from './pages/Products' ;
+//ACTIONS
+
+
 
 //set all the paths inside , parent and the children routes 
 //in the children if there is some error it will bubble up to the parent 
@@ -13,14 +22,21 @@ const router = createBrowserRouter ([
      {//Landing is the default page 
       index:true , 
       element:<Landing/>,
+      errorElement: <ErrorElement/>,
+      //below loader   fetches the featured products for the landing page 
+      loader: landingLoader ,//loader runs before the component is rendered and fetches all the necessary data for that component , if there  is an error then  ErrorElement is triggered 
       },
       {
         path : 'products',
         element:<Products/>,
+        errorElement: <ErrorElement/>,
+        loader : productsLoader
       },
       {
         path : 'products/:id',
         element:<SingleProduct/>,
+        errorElement: <ErrorElement/>,
+        loader : singleProductLoader 
       },
       {
         path : 'cart',
