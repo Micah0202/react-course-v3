@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 //similar to FormInput and FormSelect
 import { formatPrice } from "../utils";
 import { useState } from "react";
