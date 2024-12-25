@@ -3,19 +3,12 @@ import { FaBarsStaggered, FaThemeisle } from 'react-icons/fa6';
 import { NavLink } from 'react-router-dom';
 import NavLinks from './NavLinks';
 import { useState ,useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-const themes = {
-    winter : 'winter',
-    dracula : 'dracula',
-}
 
-//when the component mounts get the theme from the local storage 
-const getThemeFromLocalStorage =()=>{
-    return localStorage.getItem('theme') || themes.winter ;  //if nothing in the local storage then get themes.winter 
-}
 
 const Navbar = () => {
-    const [theme , setTheme ]= useState(getThemeFromLocalStorage()); //set the default theme as whatever is in the local storage  
+    const [theme , setTheme ] = useState(getThemeFromLocalStorage()); //set the default theme as whatever is in the local storage  
     const handleTheme =()=>{
         //fetch  the theme  from local storage 
         const {winter ,dracula} = themes ;
@@ -36,8 +29,14 @@ const Navbar = () => {
         document.documentElement.setAttribute('data-theme',theme);
         localStorage.setItem('theme',theme);
     },[theme])
+
+    //useSelector  gets the entire redux store as an  argument so you can access the cartState or any other piece odf that from the store 
+    const numItemsInCart = useSelector((state)=>state.cartState.numItemsInCart )
+   
   return (
    
+ 
+
     <nav className='bg-base-200'>
         <div className="navbar align-element">
             <div className="navbar-start">
@@ -75,7 +74,7 @@ const Navbar = () => {
                   <div className="indicator">
                     <BsCart3 className="h-6 w-6"/>
                     <span className="badge badge-sm badge-primary indicator-item">
-                    8
+                    {numItemsInCart}
                     </span>
                   </div>
                 </NavLink>

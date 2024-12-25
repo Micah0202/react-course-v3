@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 
 //this is the component that  has all the list values for the select 
 //just like FormInput component that we created this is the FormSelect component 

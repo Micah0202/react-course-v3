@@ -2,8 +2,8 @@ import { useLoaderData } from 'react-router-dom';
 import { formatPrice, customFetch, generateAmountOptions } from '../utils';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-
-
+import { useDispatch } from 'react-redux';
+import { addItem } from '../features/cart/cartSlice';
 
 //loader fetches all the data before rendering ie all the data from the api that will be displayed on the single product page 
 //loader gets loader  parameter by default that has  the params property 
@@ -15,9 +15,10 @@ export const loader   = async({params}) =>{
 
   //return null ;//return null  initially
 }
+
 const SingleProduct = () => {
   const {product}= useLoaderData() ;
-  // console.log(product) ;//product.attributes is an object
+   //console.log(product) ;//product.attributes is an object
   const {price, image , title , description  , colors  ,company  } = product.attributes ;
   //format the price
   const dollarsAmount  = formatPrice(price);
@@ -33,6 +34,20 @@ const SingleProduct = () => {
     //since it is coming from an input it is going to be text so we set it to number 
      setAmount(parseInt(e.target.value));//e.target.value is a string because <input>, <select>, and <textarea> use string values by default  for their value attribute 
   }
+  
+  //construct the big object that we will pass as payload to addItem 
+ const cartProduct = {
+  cartID  : product.id + productColor , //getting from  the colors array
+  productID : product.id ,
+  image, title , price ,  company ,productColor ,amount 
+ }
+  const dispatch = useDispatch() ; 
+  
+  //function that adds to cart 
+  const addToCart =()=>{
+     dispatch(addItem({product :cartProduct}))
+  }
+
 
    return  (
     <section>
@@ -94,7 +109,7 @@ const SingleProduct = () => {
            {/*CART BTN ie Add to bag button */}
             <div className="mt-10" >
            <button className="btn btn-secondary btn-md" onClick={()=>{
-            console.log('add to  bag');
+            console.log(addToCart());
             
            }}>
                Add to bag
