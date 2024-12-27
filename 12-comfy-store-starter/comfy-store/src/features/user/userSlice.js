@@ -5,6 +5,11 @@ const themes = {
   winter: "winter",
   dracula: "dracula",
 };
+
+const getUserFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("user")) || null;
+};
+
 //when the component mounts get the theme from the local storage
 const getThemeFromLocalStorage = () => {
   const theme = localStorage.getItem("theme") || themes.winter; //if nothing in the local storage then get themes.winter
@@ -15,7 +20,7 @@ const getThemeFromLocalStorage = () => {
 //set  the initial state
 
 const initialState = {
-  user: { username: "coding addict" }, //initially we set coding addict but later it  will be dynamic
+  user: getUserFromLocalStorage(), //initially we set coding addict but later it  will be dynamic
   theme: getThemeFromLocalStorage(),
 };
 
@@ -25,7 +30,13 @@ const userSlice = createSlice({
   reducers: {
     //below  are the actions which are dispatched .
     loginUser: (state, action) => {
-      console.log("login");
+      console.log(action.payload); //getting the response.data in the payload
+
+      //user inside the action.payload is an object with properties like blocked,confirmed, createdAt ,email , id , updatedAt  , username
+      const user = { ...action.payload.user, token: action.payload.jwt };
+      state.user = user;
+      //store it in the local storage
+      localStorage.setItem("user", JSON.stringify(user));
     },
     //set the user as null for logout and then remove the user from local storage
     logoutUser: (state) => {

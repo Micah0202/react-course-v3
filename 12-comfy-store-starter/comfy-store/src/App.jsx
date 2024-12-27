@@ -13,12 +13,16 @@ import {
 } from "./pages";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ErrorElement } from "./components";
-
+import { store } from "./store";
 //LOADERS
 import { loader as landingLoader } from "./pages/Landing";
 import { loader as singleProductLoader } from "./pages/SingleProduct";
 import { loader as productsLoader } from "./pages/Products";
 //ACTIONS
+import { action as registerAction } from "./pages/Register";
+import { action as loginAction } from "./pages/Login";
+
+//import the store and pass it to  the login page
 
 //set all the paths inside , parent and the children routes
 //in the children if there is some error it will bubble up to the parent
@@ -72,11 +76,14 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
     errorElement: <Error />,
+    //passing the store dynamically like below follows the dependency injection  principle making the function  modular and testable
+    action: loginAction(store),
   },
   {
     path: "/register",
     element: <Register />,
     errorElement: <Error />,
+    action: registerAction,
   },
 ]);
 function App() {
