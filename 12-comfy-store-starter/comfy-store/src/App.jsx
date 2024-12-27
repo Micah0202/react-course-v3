@@ -18,9 +18,11 @@ import { store } from "./store";
 import { loader as landingLoader } from "./pages/Landing";
 import { loader as singleProductLoader } from "./pages/SingleProduct";
 import { loader as productsLoader } from "./pages/Products";
+import { loader as checkoutLoader } from "./pages/Checkout";
 //ACTIONS
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
+import { action as checkoutAction } from "./components/CheckoutForm";
 
 //import the store and pass it to  the login page
 
@@ -64,6 +66,8 @@ const router = createBrowserRouter([
       {
         path: "checkout",
         element: <Checkout />,
+        loader: checkoutLoader(store), //pass the store the same way we did for login action,
+        action : checkoutAction(store),
       },
       {
         path: "orders",
