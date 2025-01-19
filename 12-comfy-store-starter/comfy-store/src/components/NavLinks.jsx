@@ -19,6 +19,7 @@ const NavLinks = () => {
     <>
       {links.map((link) => {
         const { id, url, text } = link;
+        //if url is checkout or orders and there is no  user then we return null
         if ((url === "checkout" || url === "orders") && !user) return null; //if there is no  user  then done show the checkout and orders
         return (
           <li key={id}>

@@ -5,12 +5,12 @@ import { clearCart } from "../features/cart/cartSlice";
 import { logoutUser } from "../features/user/userSlice";
 const Header = () => {
   const navigate = useNavigate();
-  //use dispatch  because when we click on logout I  want to dispatch 2 actions ie logoutUser and  the clearCart
+  //use dispatch  because when we click on logout I  want to dispatch 2 actions ie logoutUser from usersliceand  the clearCart from cartSlice
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userState.user);
 
   const handleLogout = () => {
-    //when i click on th logout button i want 3 things to happen - navigate to / , then dipatch clearCart()
+    //when i click on th logout button i want 3 things to happen - navigate to / , then dispatch clearCart() and then dispatch logoutUser()
     navigate("/");
     dispatch(clearCart());
     dispatch(logoutUser());
@@ -19,7 +19,7 @@ const Header = () => {
     <header className="bg-neutral py-2 text-neutral-content">
       <div className="align-element flex justify-center sm:justify-end">
         {/* when we get to  640 px we align everything to  the rhs */}
-
+        {/* if no user then  shw login /register buttons thats why  we have the if else  */}
         {user ? (
           <div className="flex gap-x-2 sm:gap-x-8 items-center">
             <p className="text-xs sm:text-sm">Hello , {user.username}</p>

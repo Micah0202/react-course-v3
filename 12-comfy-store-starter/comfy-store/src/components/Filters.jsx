@@ -8,7 +8,7 @@ import FormCheckbox from "./FormCheckbox";
 const Filters = () => {
   //to  get meta use loader ,Products.jsx has the loader
   const { meta, params } = useLoaderData(); //using the same loader meant for Products
-  const { search, company, category, order, price, shipping } = params; //query params that we get from  the url
+  const { search, company, category, order, price, shipping } = params; //query params that we get from  the url , we need them here to set as the default value so  that when the page is refreshed there is no problem
   return (
     //form by default is get as it is getting products from the api
     <Form className="bg-base-200 rounded-md px-8 py-4 grid gap-x-4 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">

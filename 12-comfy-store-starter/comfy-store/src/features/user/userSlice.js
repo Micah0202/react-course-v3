@@ -13,11 +13,11 @@ const getUserFromLocalStorage = () => {
 //when the component mounts get the theme from the local storage
 const getThemeFromLocalStorage = () => {
   const theme = localStorage.getItem("theme") || themes.winter; //if nothing in the local storage then get themes.winter
-  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.setAttribute("data-theme", theme); //setting the theme on the index.html attribute
   return theme;
 };
 
-//set  the initial state
+//TODO  ->WE SET THE INITIAL  state below
 
 const initialState = {
   user: getUserFromLocalStorage(), //initially we set coding addict but later it  will be dynamic

@@ -8,10 +8,10 @@ import { useDispatch } from "react-redux";
 //TODO -  SINCE we are using Form then  the React Routers Form component automatically sends data to  the action function  tied to the route , the function is exported so React Router can link it to a route
 export const action = async ({ request }) => {
   const formData = await request.formData(); //gets all the data submitted in the form
-  const data = Object.fromEntries(formData);
+  const data = Object.fromEntries(formData); //The Object.fromEntries() method converts the FormData object into a plain JavaScript object.
   try {
     //calling the register user api , the response has the jwt token also
-    const response = await customFetch.post("/auth/local/register", data); //passing the body ie whatever you  get from the form  , since the name is what the server is looking for there should not be any problem .also Object.entries is needed tocreate the proper body data , the kind we pass in Postman
+    const response = await customFetch.post("/auth/local/register", data); //passing the body ie whatever you  get from the form  , since the name is what the server is looking for there should not be any problem .also Object.entries is needed to create the proper body data , the kind we pass in Postman
     toast.success("account created successfully");
     return redirect("/login");
   } catch (error) {
