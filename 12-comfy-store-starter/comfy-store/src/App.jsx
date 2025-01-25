@@ -11,6 +11,8 @@ import {
   SingleProduct,
   Login,
 } from "./pages";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ErrorElement } from "./components";
 import { store } from "./store";
@@ -26,6 +28,14 @@ import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { action as checkoutAction } from "./components/CheckoutForm";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      //below we are setting the global  stale time
+      staleTime: 1000 * 60 * 5, //stale time is a configuration option that determines how long the cached data is considered "fresh" before it becomes "stale
+    },
+  },
+});
 //import the store and pass it to  the login page
 
 //set all the paths inside , parent and the children routes
@@ -43,19 +53,19 @@ const router = createBrowserRouter([
         element: <Landing />,
         errorElement: <ErrorElement />,
         //below loader   fetches the featured products for the landing page
-        loader: landingLoader, //loader runs before the component is rendered and fetches all the necessary data for that component , if there  is an error then  ErrorElement is triggered
+        loader: landingLoader(queryClient), //loader runs before the component is rendered and fetches all the necessary data for that component , if there  is an error then  ErrorElement is triggered
       },
       {
         path: "products",
         element: <Products />,
         errorElement: <ErrorElement />,
-        loader: productsLoader,
+        loader: productsLoader(queryClient),
       },
       {
         path: "products/:id",
         element: <SingleProduct />,
         errorElement: <ErrorElement />,
-        loader: singleProductLoader,
+        loader: singleProductLoader(queryClient),
       },
       {
         path: "cart",
@@ -69,12 +79,12 @@ const router = createBrowserRouter([
         path: "checkout",
         element: <Checkout />,
         loader: checkoutLoader(store), //pass the store the same way we did for login action,
-        action: checkoutAction(store),
+        action: checkoutAction(store, queryClient),
       },
       {
         path: "orders",
         element: <Orders />,
-        loader: ordersLoader(store),
+        loader: ordersLoader(store, queryClient),
       },
     ],
   },
@@ -94,7 +104,10 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  return <RouterProvider router={router} />;
+  <QueryClientProvider client={queryClient}>
+    <RouterProvider router={router} />
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>;
 }
 
 export default App;

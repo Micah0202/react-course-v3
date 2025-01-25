@@ -7,14 +7,16 @@ import { addItem } from "../features/cart/cartSlice";
 
 //loader fetches all the data before rendering ie all the data from the api that will be displayed on the single product page
 //loader gets loader  parameter by default that has  the params property
-export const loader = async ({ params }) => {
-  //console.log(loader);
-  const response = await customFetch(`/products/${params.id}`); //
+export const loader =
+  (queryClient) =>
+  async ({ params }) => {
+    //console.log(loader);
+    const response = await customFetch(`/products/${params.id}`); //
 
-  return { product: response.data.data };
+    return { product: response.data.data };
 
-  //return null ;//return null  initially
-};
+    //return null ;//return null  initially
+  };
 
 const SingleProduct = () => {
   const { product } = useLoaderData();
