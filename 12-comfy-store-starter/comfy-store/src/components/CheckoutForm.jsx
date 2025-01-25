@@ -14,10 +14,10 @@ export const action =
     // console.log(store); //can log the store here inside the innermost function due to  closures
     // return null;
     const formData = await request.formData();
-    const { name, address } = Object.fromEntries(formData);
+    const { name, address } = Object.fromEntries(formData); //destructuring out  what we are getting from the form as we are going to construct a bigger object
 
     //get the user
-    const user = store.getState().userState.user;
+    const user = store.getState().userState.user; //we need the user to  use the particular users token
     //get stuff from the cart
     const { cartItems, orderTotal, numItemsInCart } =
       store.getState().cartState;
@@ -27,7 +27,7 @@ export const action =
     const info = {
       name,
       address,
-      chargeTotal: orderTotal,
+      chargeTotal: orderTotal, //this is in cents and for the payment provider
       orderTotal: formatPrice(orderTotal), //orderTotal  is the formatted chargeTotal
       cartItems, //cartItems is an array where every item is an object and each object has these properties : amount, cartID , company , image , price , productColor , productID , title
       numItemsInCart,
@@ -38,7 +38,7 @@ export const action =
       //along with the data in the 3rd parameter pass the token in the headers
       const response = await customFetch.post(
         "/orders",
-        { data: info },
+        { data: info }, //data as the name is very imp , check the json  response in postman to  see  the data object for create orders 
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -67,6 +67,7 @@ export const action =
   };
 const CheckoutForm = () => {
   return (
+    //since CheckoutForm is inside Checkout , the request is going to  go  to Checkout
     <Form method="POST" className="flex flex-col gap-y-4">
       <h4 className="font-medium text-xl">Shipping information</h4>
       {/* name='name' is what the server looks for  */}

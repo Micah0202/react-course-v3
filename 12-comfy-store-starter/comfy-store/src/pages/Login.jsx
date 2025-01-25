@@ -18,7 +18,7 @@ export const action =
       store.dispatch(loginUser(response.data)); //pass the entire response.data and destructure it in the user slice
       //calling the login user api
       toast.success("logged in  successfully");
-      return redirect("/"); //redirect tot the home page
+      return redirect("/"); //redirect to the home page
     } catch (error) {
       const errorMessage =
         error?.response?.data?.error?.message ||
@@ -33,6 +33,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //function that is called when we click the guest user  button
   const loginAsGuestUser = async () => {
     try {
       const response = await customFetch.post("/auth/local", {

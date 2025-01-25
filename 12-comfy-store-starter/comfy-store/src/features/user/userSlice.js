@@ -6,6 +6,7 @@ const themes = {
   dracula: "dracula",
 };
 
+//to get the user from the local  storage 
 const getUserFromLocalStorage = () => {
   return JSON.parse(localStorage.getItem("user")) || null;
 };
@@ -30,7 +31,7 @@ const userSlice = createSlice({
   reducers: {
     //below  are the actions which are dispatched .
     loginUser: (state, action) => {
-      console.log(action.payload); //getting the response.data in the payload
+      console.log(action.payload); //getting the response.data in the payload , grab the user and jwt from payload 
 
       //user inside the action.payload is an object with properties like blocked,confirmed, createdAt ,email , id , updatedAt  , username
       const user = { ...action.payload.user, token: action.payload.jwt };

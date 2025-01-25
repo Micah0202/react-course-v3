@@ -4,13 +4,14 @@ import { CheckoutForm, SectionTitle, CartTotals } from "../components";
 import { toast } from "react-toastify";
 
 //check for user
+//SINCE WE HAVE TO  ACCESS THE USER WE HAVE TO  USE THE SAME APPROACH OF LOADER BEING A FUNCTION THAT RETURNS A FUNCTION 
 //will have to use the same setup  of a loader being a function that returns a function as we need to  access the store here
 export const loader = (store) => () => {
   //get the current user in the loader using
   const user = store.getState().userState.user;
   if (!user) {
     toast.warn("you must be logged in to checkout");
-    return redirect("/login");
+    return redirect("/login"); //navigate back  to login so  that the user can log in
   }
   return null;
 };
