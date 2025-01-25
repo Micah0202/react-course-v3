@@ -5,13 +5,23 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../features/cart/cartSlice";
 
+//todo - query . function that returns an object
+const singleProductQuery = (id) => {
+  return {
+    queryKey: ["singleProduct", id],
+    queryFn: () => customFetch(`/products/${id}`),
+  };
+};
+
 //loader fetches all the data before rendering ie all the data from the api that will be displayed on the single product page
 //loader gets loader  parameter by default that has  the params property
 export const loader =
   (queryClient) =>
   async ({ params }) => {
     //console.log(loader);
-    const response = await customFetch(`/products/${params.id}`); //
+    const response = await queryClient.ensureQueryData(
+      singleProductQuery(params.id)
+    ); //
 
     return { product: response.data.data };
 

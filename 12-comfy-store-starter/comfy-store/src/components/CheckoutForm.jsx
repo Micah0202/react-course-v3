@@ -6,10 +6,10 @@ import { customFetch, formatPrice } from "../utils";
 import { toast } from "react-toastify";
 import { clearCart } from "../features/cart/cartSlice";
 import { BsTrophy } from "react-icons/bs";
-
+import { QueryClient } from "@tanstack/react-query";
 //action  where we will post the data to  the server and update the state as well so we will  need access to the store so use the same approach of action being a function that returns a function
 export const action =
-  (store) =>
+  (store, queryClient) =>
   async ({ request }) => {
     // console.log(store); //can log the store here inside the innermost function due to  closures
     // return null;
@@ -38,7 +38,7 @@ export const action =
       //along with the data in the 3rd parameter pass the token in the headers
       const response = await customFetch.post(
         "/orders",
-        { data: info }, //data as the name is very imp , check the json  response in postman to  see  the data object for create orders 
+        { data: info }, //data as the name is very imp , check the json  response in postman to  see  the data object for create orders
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -46,6 +46,7 @@ export const action =
         }
       );
       // console.log(response);
+      queryClient.removeQueries(["orders"]);
       //if we successfully get a response , then clear the cart ,  then show  the success toast and then
       store.dispatch(clearCart());
       toast.success("order placed successfully");
@@ -58,7 +59,7 @@ export const action =
         "please double check your credentials";
       toast.error(errorMessage);
       //403 if token is invalid
-      if (error.response.status === 401 || 403) {
+      if (error?.response?.status === 401 || 403) {
         return redirect("/login");
       }
 

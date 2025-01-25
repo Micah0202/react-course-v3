@@ -8,10 +8,28 @@ import {
   SectionTitle,
 } from "../components";
 
+//todo - query
+const ordersQuery = (params, user) => {
+  return {
+    queryKey: [
+      "orders",
+      user.username,
+      params.page ? parseInt(params.page) : 1,
+    ],
+    queryFn: () =>
+      customFetch.get("/orders", {
+        params,
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }),
+  };
+};
+
 //add the query params for example the pages
 //the loader  gets all the data before the page loads so  get all the  data from the server about the orders and displays it
 export const loader =
-  (store) =>
+  (store, queryClient) =>
   async ({ request }) => {
     // console.log(store);
     // first restrict the user by checking if a user is logged in
@@ -32,12 +50,9 @@ export const loader =
     ]);
     console.log(params);
     try {
-      const response = await customFetch.get("/orders", {
-        params,
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await queryClient.ensureQueryData(
+        ordersQuery(params, user)
+      );
       // console.log(response);
       //return the orders and the meta
       return { orders: response.data.data, meta: response.data.meta };
@@ -49,7 +64,7 @@ export const loader =
         "please double check your credentials";
       toast.error(errorMessage);
       //403 if token is invalid
-      if (error.response.status === 401 || 403) {
+      if (error?.response?.status === 401 || 403) {
         return redirect("/login");
       }
 

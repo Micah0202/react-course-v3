@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { clearCart } from "../features/cart/cartSlice";
 import { logoutUser } from "../features/user/userSlice";
+import { useQueryClient } from "@tanstack/react-query";
 const Header = () => {
   const navigate = useNavigate();
   //use dispatch  because when we click on logout I  want to dispatch 2 actions ie logoutUser from usersliceand  the clearCart from cartSlice
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const user = useSelector((state) => state.userState.user);
 
   const handleLogout = () => {
@@ -14,6 +16,7 @@ const Header = () => {
     navigate("/");
     dispatch(clearCart());
     dispatch(logoutUser());
+    queryClient.removeQueries();
   };
   return (
     <header className="bg-neutral py-2 text-neutral-content">

@@ -103,11 +103,13 @@ const router = createBrowserRouter([
     action: registerAction,
   },
 ]);
-function App() {
-  <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
-    <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>;
-}
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
+};
 
 export default App;
